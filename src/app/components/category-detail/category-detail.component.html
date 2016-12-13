@@ -1,15 +1,10 @@
-<div *ngIf="category" class="container">
-    <h1>
-      Category: {{category.title}}
-    </h1>
-    <h3>Products:</h3>
+<div *ngIf="category" class="category">
+    <div class=""><img src="{{category.image.banner}}" /></div>
+    <ul class="breadcrumbs">
+        <li><a href="">Home</a></li>
+        <li>{{category.title}}</li>
+    </ul>
     <div class="products">
-        <div *ngFor="let product of products" class="prod">
-            <div class="prod-img"><a href=""><img src="{{product.image[0].main}}" /></a></div>
-            <h3 class="prod-title informal"><a href="">{{product.title}}</a></h3>
-            <div class="prod-price">${{product.price}}</div>
-            <button (click)="addToCart(product)" class="prod-add">Add To Cart</button>
-            <div class="prod-desc">{{product.description}}</div>
-        </div>
+        <product-card *ngFor="let product of products" [product]="product" class="prod"></product-card>
     </div>
 </div>
