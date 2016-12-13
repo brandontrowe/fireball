@@ -13,7 +13,7 @@ import { ActivatedRoute, Params }       from '@angular/router';
   styleUrls: ['./category-detail.component.css']
 })
 export class CategoryDetailComponent implements OnInit {
-    public categories: FirebaseListObservable<ICategory[]>;
+    public categories: Observable<ICategory[]>;
     public products: IProduct[];
 
     constructor(
@@ -23,8 +23,10 @@ export class CategoryDetailComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        /*
         this.route.params.subscribe((params) => {
             this.categories = this.cs.getCategoryById(+params['id'])
+            
             this.categories.subscribe(category => {
                 console.log('category', category[0])
                 this.ps.getProductsByCategory(category[0])
@@ -34,6 +36,8 @@ export class CategoryDetailComponent implements OnInit {
                     }
                 )
             })
+
         });
+        */
     }
 }

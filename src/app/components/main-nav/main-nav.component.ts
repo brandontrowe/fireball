@@ -1,8 +1,11 @@
+import 'rxjs/add/operator/push';
+
 import { Component, OnInit }            from '@angular/core';
 import { Router }                       from '@angular/router';
 import { ICategory }                    from '../../models/category';
 import { CategoryService }              from '../../services/category.service';
 import { FirebaseListObservable }       from 'angularfire2';
+import { Observable }                   from 'rxjs/Observable';
 
 @Component({
     selector: 'main-nav',
@@ -10,7 +13,8 @@ import { FirebaseListObservable }       from 'angularfire2';
     styleUrls: ['./main-nav.component.css']
 })
 export class MainNavComponent implements OnInit {
-    public categories: FirebaseListObservable<ICategory[]>;
+    public categories: Observable<ICategory>;
+    private subject: ReplaySubject;
 
     constructor(
         private router: Router,
@@ -18,7 +22,11 @@ export class MainNavComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.categories = this.cs.getCategories();
+        this.cs.getCategories().subscribe(
+            categories => {
+                this.categories.push(categories);
+            }
+        );
     }
 
     onSelect(event, category: ICategory) {
