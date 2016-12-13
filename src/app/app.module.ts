@@ -13,6 +13,7 @@ import { CategoryService }          from './services/category.service';
 import { ProductService }           from './services/product.service';
 
 import { AppRoutingModule }         from './app-routing.module';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBwsnF2xujVHJ_ZNqUxUB8z_A2oBFKZAyo",
@@ -26,7 +27,8 @@ const firebaseConfig = {
   declarations: [
     AppComponent,
     CategoryDetailComponent,
-    MainNavComponent
+    MainNavComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,

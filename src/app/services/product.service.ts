@@ -25,14 +25,17 @@ export class ProductService {
 
     getProductsByCategory(category: ICategory):Promise<IProduct[]> {
         return new Promise<IProduct[]>((resolve, reject) => {
-            this.getProducts()
-                .subscribe( rawProducts => {
-                    let prodAssignmentsArr = category.productAssignments
-                    let catProducts = rawProducts.filter((product) => {
-                        return _.includes(prodAssignmentsArr, product.id)
-                    })
-                    resolve(catProducts)
-                });
+            let sub = this.getProducts()
+                        .subscribe( rawProducts => {
+                            let prodAssignmentsArr = category.productAssignments
+                            let catProducts = rawProducts.filter((product) => {
+                                return _.includes(prodAssignmentsArr, product.id)
+                            })
+                             if(catProducts.length === prodAssignmentsArr.length) {
+                                resolve(catProducts);
+                                sub.unsubscribe();
+                             }
+                        });
         });
     }
 
