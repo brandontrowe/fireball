@@ -14,6 +14,7 @@ import { ProductService }           from './services/product.service';
 
 import { AppRoutingModule }         from './app-routing.module';
 import { ProductCardComponent } from './components/product-card/product-card.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBwsnF2xujVHJ_ZNqUxUB8z_A2oBFKZAyo",
@@ -28,7 +29,8 @@ const firebaseConfig = {
     AppComponent,
     CategoryDetailComponent,
     MainNavComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
