@@ -8,18 +8,18 @@ import { AngularFireModule }        from 'angularfire2';
 import { AppComponent }             from './components/app.component';
 import { CategoryDetailComponent }  from './components/category-detail/category-detail.component';
 import { ProductCardComponent }     from './components/product-card/product-card.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { MainNavComponent }         from './components/main-nav/main-nav.component';
 import { CategoryNavComponent }     from './components/category-nav/category-nav.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { MiniCartComponent } from './components/mini-cart/mini-cart.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 import { CategoryService }          from './services/category.service';
 import { ProductService }           from './services/product.service';
 import { CookieService }           from './services/cookie.service';
 
 import { AppRoutingModule }         from './app-routing.module';
-import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
-import { MiniCartComponent } from './components/mini-cart/mini-cart.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
-
 
 const firebaseConfig = {
     apiKey: "AIzaSyBwsnF2xujVHJ_ZNqUxUB8z_A2oBFKZAyo",
@@ -36,6 +36,7 @@ const firebaseConfig = {
     MainNavComponent,
     CategoryNavComponent,
     ProductCardComponent,
+    ProductDetailComponent,
     ShoppingCartComponent,
     MiniCartComponent,
     CheckoutComponent

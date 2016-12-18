@@ -16,15 +16,15 @@ export class CategoryService {
         return new Promise<ICategory>((resolve, reject) => {
             let sub = this.categories
                         .subscribe( rawCategories => {
-                            let returnCat = rawCategories.filter((category) => {
+                            let return_category = rawCategories.filter((category) => {
                                 return category.id == id;
                             })
 
-                            if(returnCat[0]) {
-                                resolve(returnCat[0])
+                            // if we found a category, resolve promise and close the subscription
+                            if(return_category[0]) {
+                                resolve(return_category[0])
                                 sub.unsubscribe()
                             }
-
                         });
         });
     }

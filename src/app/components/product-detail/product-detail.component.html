@@ -1,0 +1,8 @@
+<div *ngIf="product" class="product-detail">
+    <ul class="breadcrumbs">
+        <li><a href="">Home</a></li>
+        <li *ngIf="category"><a (click)="navigateToCategory($event, category)" href="">{{category.title}}</a></li>
+        <li>{{product.title}}</li>
+    </ul>
+    {{product.title}}
+</div>

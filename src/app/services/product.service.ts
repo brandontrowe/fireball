@@ -1,31 +1,39 @@
-import * as _ from 'lodash';
-
+import * as _                                   from 'lodash';
 import { Injectable }                           from '@angular/core';
 import { AngularFire, FirebaseListObservable }  from 'angularfire2';
 import { IProduct }                             from '../models/product';
 import { ICategory }                            from '../models/category';
-import { Observable }                           from 'rxjs/Observable';
 
 @Injectable()
 export class ProductService {
     constructor(public af: AngularFire) { }
     private path = '/products';
+    private products = this.af.database.list(this.path);
 
     getProducts():FirebaseListObservable<IProduct[]> {
-        return this.af.database.list(this.path);
+        return this.products;
     }
 
-    getProductsById(id: number):FirebaseListObservable<IProduct[]> {
-        return this.af.database.list(this.path, {query: {
-                orderByChild: 'id',
-                equalTo: id
-            }
+    getProductById(id: number):Promise<IProduct> {
+        return new Promise<IProduct>((resolve, reject) => {
+            let sub = this.products
+                        .subscribe( rawProducts => {
+                            let return_product = rawProducts.filter((product) => {
+                                return product.id == id;
+                            })
+
+                            if(return_product[0]) {
+                                resolve(return_product[0])
+                                sub.unsubscribe()
+                            }
+
+                        });
         });
     }
 
     getProductsByCategory(category: ICategory):Promise<IProduct[]> {
         return new Promise<IProduct[]>((resolve, reject) => {
-            let sub = this.getProducts()
+            let sub = this.products
                         .subscribe( rawProducts => {
                             let prodAssignmentsArr = category.productAssignments
                             let catProducts = rawProducts.filter((product) => {
