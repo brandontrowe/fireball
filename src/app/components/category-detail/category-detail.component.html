@@ -4,7 +4,17 @@
         <li><a href="">Home</a></li>
         <li>{{category.title}}</li>
     </ul>
-    <div class="products">
-        <product-card *ngFor="let product of products" [product]="product" class="prod"></product-card>
+    <div class="product-block">
+        <category-nav></category-nav>
+        <div class="products">
+            <div class="product-control">
+                <select (change)="selectSort($event.target.value)" class="sort-products">
+                    <option value="">- Sort -</option>
+                    <option value="priceHighToLow">Price: High to Low</option>
+                    <option value="priceLowToHigh">Price: Low to High</option>
+                </select>
+            </div>
+            <product-card *ngFor="let product of products" [product]="product" class="prod"></product-card>
+        </div>
     </div>
 </div>

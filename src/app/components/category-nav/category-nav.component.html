@@ -1,0 +1,3 @@
+<ul class="category-nav">
+    <li *ngFor="let category of categories | async"><a (click)="onSelect($event, category)" href="#">{{category.title}} ({{category.productAssignments.length}})</a></li>
+</ul>
