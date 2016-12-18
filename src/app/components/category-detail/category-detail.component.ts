@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/switchMap';
 
-import { Component, Input, OnInit }     from '@angular/core';
-import { ActivatedRoute, Params }       from '@angular/router';
+import { Component, Input, OnInit }         from '@angular/core';
+import { ActivatedRoute, Params, Router }   from '@angular/router';
 
 import { ICategory }                    from '../../models/category';
 import { IProduct }                     from '../../models/product';
@@ -20,7 +20,8 @@ export class CategoryDetailComponent implements OnInit {
     constructor(
         public categoryService: CategoryService,
         public productService: ProductService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -31,6 +32,50 @@ export class CategoryDetailComponent implements OnInit {
                 this.productService.getProductsByCategory(res)
                     .then(catProducts => { this.products = catProducts });
             });
+
+        this.route.queryParams.subscribe((qParams) => {
+            if(qParams['sort']) {
+                this.sortProducts(qParams['sort'])
+            }
+        })
+    }
+
+    selectSort(type) {
+        if (type != '') {
+            this.router.navigate(['./'], { relativeTo: this.route, queryParams: {'sort': type} });
+        }
+    }
+
+    sortProducts(sortParam) {
+        if(sortParam === 'priceHighToLow') {
+            this.sortPriceHighToLow();
+        } else if (sortParam === 'priceLowToHigh') {
+            this.sortPriceLowToHigh();
+        }
+    }
+
+    sortPriceHighToLow() {
+        if(this.products && this.products.length) {
+            this.products.sort((a, b) => {
+                if (parseInt(a.price) < parseInt(b.price))
+                    return 1;
+                if (parseInt(a.price) > parseInt(b.price))
+                    return -1;
+                return 0;
+            })
+        }
+    }
+
+    sortPriceLowToHigh() {
+        if(this.products && this.products.length) {
+            this.products.sort((a, b) => {
+                if (parseInt(a.price) < parseInt(b.price))
+                    return -1;
+                if (parseInt(a.price) > parseInt(b.price))
+                    return 1;
+                return 0;
+            })
+        }
     }
 
 }

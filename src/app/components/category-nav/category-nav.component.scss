@@ -1,0 +1,31 @@
+.category-nav {
+    list-style:none;
+    margin:0;
+    padding:0;
+    li {
+        display:block;
+        a {
+            display: block;
+            padding: 11px 13px 10px 2px;
+            text-decoration: none;
+            color: #777;
+            border-bottom: 1px solid #eee;
+            margin-top: -1px;
+        }
+        &.active {
+            a {
+                background-color: #23495C;
+                color: #fff;
+                padding-left: 15px;
+            }
+        }
+        &:hover {
+            a {
+                background-color:lighten(#23495C, 20%);
+                color: #fff;
+                padding-left: 15px;
+            }
+        }
+    }
+
+}

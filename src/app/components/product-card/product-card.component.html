@@ -2,6 +2,5 @@
     <div class="prod-img"><a (click)="navigateToProduct($event, product)" href=""><img src="{{product.image[0].main}}" /></a></div>
     <h3 class="prod-title informal"><a (click)="navigateToProduct($event, product)" href="">{{product.title}}</a></h3>
     <div class="prod-price">${{product.price}}</div>
-    <button (click)="addToCart($event, product)" class="prod-add">Add To Cart</button>
-    <div class="prod-desc">{{product.id}}</div>
+    <div (click)="addToCart($event, product)" class="prod-add">Add To Cart</div>
 </div>
