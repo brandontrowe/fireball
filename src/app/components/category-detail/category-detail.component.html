@@ -1,6 +1,6 @@
-<div *ngIf="category" class="category">
-    <div class=""><img src="{{category.image.banner}}" /></div>
-    <ul class="breadcrumbs">
+<div class="category">
+    <div *ngIf="category" class=""><img src="{{category.image.banner}}" /></div>
+    <ul *ngIf="category" class="breadcrumbs">
         <li><a href="">Home</a></li>
         <li>{{category.title}}</li>
     </ul>
