@@ -5,7 +5,7 @@ import { ICategory }                            from '../models/category';
 @Injectable()
 export class CategoryService {
     constructor(public af: AngularFire) { }
-    private path = '/categories';
+    private path = '/CATEGORY';
     private categories = this.af.database.list(this.path);
 
     getCategories():FirebaseListObservable<ICategory[]> {

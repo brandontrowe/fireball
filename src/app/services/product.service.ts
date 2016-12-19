@@ -7,11 +7,18 @@ import { ICategory }                            from '../models/category';
 @Injectable()
 export class ProductService {
     constructor(public af: AngularFire) { }
-    private path = '/products';
+    private path = '/PRODUCT';
     private products = this.af.database.list(this.path);
 
-    getProducts():FirebaseListObservable<IProduct[]> {
-        return this.products;
+    getProducts():Promise<IProduct[]> {
+        return new Promise<IProduct[]>((resolve, reject) => {
+            let sub = this.products
+                        .subscribe(products => {
+                                resolve(products)
+                                sub.unsubscribe()
+                            }
+                        );
+        });
     }
 
     getProductById(id: number):Promise<IProduct> {
@@ -31,15 +38,14 @@ export class ProductService {
         });
     }
 
-    getProductsByCategory(category: ICategory):Promise<IProduct[]> {
+    getProductsByIds(ids: number[]):Promise<IProduct[]> {
         return new Promise<IProduct[]>((resolve, reject) => {
             let sub = this.products
                         .subscribe( rawProducts => {
-                            let prodAssignmentsArr = category.productAssignments
                             let catProducts = rawProducts.filter((product) => {
-                                return _.includes(prodAssignmentsArr, product.id)
+                                return _.includes(ids, product.id)
                             })
-                             if(catProducts.length === prodAssignmentsArr.length) {
+                             if(catProducts.length === ids.length) {
                                 resolve(catProducts);
                                 sub.unsubscribe();
                              }

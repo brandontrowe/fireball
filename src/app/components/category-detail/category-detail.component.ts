@@ -25,13 +25,18 @@ export class CategoryDetailComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.route.params
-            .switchMap((params: Params) => this.categoryService.getCategoryById(+params['id']) )
-            .subscribe((res) => {
-                this.category = res;
-                this.productService.getProductsByCategory(res)
-                    .then(catProducts => { this.products = catProducts });
-            });
+        if(this.route.snapshot.params['id']) {
+            this.route.params
+                .switchMap((params: Params) => this.categoryService.getCategoryById(+params['id']) )
+                .subscribe((res) => {
+                    this.category = res;
+                    this.productService.getProductsByIds(res.productAssignments)
+                        .then(catProducts => { this.products = catProducts });
+                });
+        } else {
+            this.productService.getProducts()
+                .then(products => { this.products = products });
+        }
 
         this.route.queryParams.subscribe((qParams) => {
             if(qParams['sort']) {
