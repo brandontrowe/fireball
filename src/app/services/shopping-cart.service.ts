@@ -13,32 +13,49 @@ export class ShoppingCartService {
             equalTo: this.sessionId
         }
     }) as FirebaseListObservable<ShoppingCart[]>;
-    private cart = new ShoppingCart(this.sessionId);
+    public cart: ShoppingCart = new ShoppingCart(this.sessionId);
 
     constructor(
         public cookieService: CookieService,
         public af: AngularFire
     ) {
         cookieService.createCookie('ngSession', this.sessionId, 30);
-        this.shoppingCart.subscribe(res => this.cart = res[0]);
-    }
-
-    updateProductsInCart(): firebase.Promise<any> {
-        return this.shoppingCart.update(cart.$key, cart.products);
-    }
-
-    addToCart(productId: number):Promise<boolean> {
-        console.log(this.cart)
-        return new Promise<boolean> ((resolve, reject) => {
-            if(this.cart.products) {
-                this.cart.products.push(productId);
+        this.shoppingCart.subscribe(res => {
+            if(res[0] == undefined) {
+                this.createCart();
             } else {
-                this.cart.products = [productId];
+                this.cart = new ShoppingCart(res[0].id, res[0].$key, res[0].items);
             }
-            this.updateCart(this.cart);
+        });
+    }
+
+    createCart(): firebase.Promise<any> {
+        return this.shoppingCart.push(this.cart);
+    }
+
+    updateCart(): firebase.Promise<any> {
+        return this.shoppingCart.update(
+            this.cart.$key,
+            {
+                'items': this.cart.items
+            }
+        );
+    }
+
+    addToCart(productId: number, quantity?: number):Promise<boolean> {
+        let qty = quantity ? quantity : 1;
+        return new Promise<boolean> ((resolve, reject) => {
+            if(this.cart.items) {
+                this.cart.items.push({'id': productId, 'quantity': qty});
+            } else {
+                this.cart.items = [{
+                        'id': productId,
+                        'quantity': qty
+                    }];
+            }
+            this.updateCart();
             resolve(true)
         })
-
     }
 
 }

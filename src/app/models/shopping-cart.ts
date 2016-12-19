@@ -1,22 +1,26 @@
 import { IAddress } from './address';
 
+export interface IItem {
+    id: number;
+    quantity: number;
+}
+
 export class ShoppingCart {
+    $key?: string;
     id: string;
-    products: number[];
-    shipping_address: IAddress;
-    billing_address: IAddress;
+    items: IItem[];
+    shipping_address?: IAddress;
+    billing_address?: IAddress;
 
-    constructor(sessionId: string) {
+    constructor(sessionId: string, $key?: string, items?: IItem[]) {
         this.id = sessionId;
-        this.products = [];
-
+        if ($key) {
+            this.$key = $key; }
+        if (items) {
+            this.items = items;
+        } else {
+            this.items = [];
+        }
     }
-
-    
-
-    addProduct(productId: number) {
-        console.log('a thing')
-        this.products.push(productId);
-    };
 
 }
