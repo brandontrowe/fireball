@@ -1,0 +1,65 @@
+.ui-widget * {
+    box-sizing: border-box;
+}
+.ui-widget {
+    font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+    font-size: 1em;
+}
+.ui-widget-content {
+    background: #d4d4d4;
+    color: #1f1f1f;
+}
+.ui-widget-header {
+    background: #f0f0f0;
+    color: #453821;
+    font-weight: bold;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+    background: #d4d4d4;
+    color: #654b24;
+}
+
+.ui-slider {
+    position: relative;
+    text-align: left;
+    border-radius:100px;
+
+    .ui-slider-range {
+       position: absolute;
+       font-size: .7em;
+       display: block;
+       border: 0;
+       background-position: 0 0;
+       background:#f0f0f0;
+   }
+   .ui-slider-handle {
+       position: absolute;
+       width: 1.1em;
+       height: 1.1em;
+       cursor: default;
+       -ms-touch-action: none;
+       touch-action: none;
+       z-index: 1;
+       background:$brand-primary;
+       cursor: w-resize;
+   }
+   .ui-slider-handle-active {
+       background:$brand-primary;
+   }
+}
+.ui-slider-horizontal {
+    height: .6em;
+
+    .ui-slider-range {
+        top: 0;
+        height: 100%;
+    }
+    .ui-slider-handle {
+        top: -.3em;
+        margin-left: -.6em;
+        border-radius:100px;
+    }
+}

@@ -16,6 +16,7 @@ import { ProductService }               from '../../services/product.service';
 export class CategoryDetailComponent implements OnInit {
     category: ICategory;
     products: IProduct[];
+    sort: string;
 
     constructor(
         public categoryService: CategoryService,
@@ -31,7 +32,12 @@ export class CategoryDetailComponent implements OnInit {
                 .subscribe((res) => {
                     this.category = res;
                     this.productService.getProductsByIds(res.productAssignments)
-                        .then(catProducts => { this.products = catProducts });
+                        .then(catProducts => {
+                            this.products = catProducts;
+                            if(this.sort.length) {
+                                this.sortProducts(this.sort);
+                            }
+                        });
                 });
         } else {
             this.productService.getProducts()
@@ -43,6 +49,10 @@ export class CategoryDetailComponent implements OnInit {
                 this.sortProducts(qParams['sort'])
             }
         })
+        console.log(this.route.snapshot.queryParams['sort'].length)
+        if(this.route.snapshot.queryParams['sort'].length) {
+            this.sort = this.route.snapshot.queryParams['sort'];
+        }
     }
 
     selectSort(type) {

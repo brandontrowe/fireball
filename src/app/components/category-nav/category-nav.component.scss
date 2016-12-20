@@ -1,3 +1,14 @@
+@import '../../../scss/_variables';
+
+h3 {
+    padding-bottom:5px;
+    border-bottom:1px solid #eee;
+
+    font-weight:normal;
+    text-transform:uppercase;
+    font-size:1.25rem;
+}
+
 .category-nav {
     list-style:none;
     margin:0;
@@ -14,14 +25,14 @@
         }
         &.active {
             a {
-                background-color: #23495C;
+                background-color: $brand-primary;
                 color: #fff;
                 padding-left: 15px;
             }
         }
         &:hover {
             a {
-                background-color:lighten(#23495C, 20%);
+                background-color:$brand-primary;
                 color: #fff;
                 padding-left: 15px;
             }

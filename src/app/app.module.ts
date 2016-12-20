@@ -2,7 +2,7 @@ import { BrowserModule }            from '@angular/platform-browser';
 import { NgModule }                 from '@angular/core';
 import { FormsModule }              from '@angular/forms';
 import { HttpModule }               from '@angular/http';
-
+import { SliderModule }                 from 'primeng/primeng';
 import { AngularFireModule }        from 'angularfire2';
 
 import { AppComponent }             from './components/app.component';
@@ -46,7 +46,8 @@ const firebaseConfig = {
     FormsModule,
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AppRoutingModule
+    AppRoutingModule,
+    SliderModule
   ],
   providers: [
       CategoryService,

@@ -1,13 +1,44 @@
 .main-nav {
-
+    background-color:lighten(#424242, 10%);
     ul {
+        display:inline-block;
+        width:50%;
         list-style:none;
         margin:0;
         padding:0;
         li {
             display:inline-block;
+            border-right:1px solid #ccc;
+
             a {
-                display:block; padding:3px 5px;
+                color:#fff;
+                display:block;
+                padding:10px 20px;
+
+                &:hover {
+                    background-color:lighten(#424242, 20%);
+                    text-decoration: none;
+                }
+                &.active {
+                    background-color:#424242;
+                }
+            }
+
+        }
+    }
+
+    .cart {
+        display:inline;
+        margin:0 0 0 auto;
+        width:130px;
+        float:right;
+        a {
+            padding:10px 20px;
+            display:block;
+            text-align:right;
+            color:#fff;
+            &:hover {
+                text-decoration:none;
             }
         }
     }

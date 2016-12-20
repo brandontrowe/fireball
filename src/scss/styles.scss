@@ -1,9 +1,15 @@
 @import '_variables';
 @import '_reset';
+@import 'font-awesome/font-awesome';
+@import '_primeUI';
 
 @import '_breadcrumbs';
 @import '_header';
-/* You can add global styles to this file, and also import other style files */
+
+#root-loading {
+    margin-top:300px;
+}
+
 body {
     -webkit-font-smoothing: antialiased;
     width:100%;

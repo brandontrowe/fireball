@@ -1,1 +1,6 @@
-main-nav
+<nav class="main-nav">
+    <ul>
+        <li *ngFor="let nav of navigation"><a routerLink="{{nav.link}}" href="#" [innerHTML]="nav.label"></a></li>
+    </ul>
+    <div class="cart"><a href=""><i class="fa fa-shopping-cart"></i> Cart ({{cartQty}})</a></div>
+</nav>

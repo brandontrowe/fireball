@@ -1,3 +1,19 @@
+.category-banner {
+    position:relative;
+    .title {
+        position:absolute;
+        top:60%;
+        left:50px;
+
+        font-size:26px;
+        font-weight:800;
+        color:#424242;
+        &.default {
+            color:#fff;
+        }
+    }
+}
+
 .products {
     display:inline-flex;
     flex-direction:row;
@@ -48,11 +64,12 @@
             display:block;
             width:100%;
             margin-bottom:20px;
-            text-align:right;
+            text-align:left;
             flex: 1 1 100%;
 
             .sort-products {
-                margin:0 0 0 auto;
+                font-size:16px;
+                margin:0;
                 border:1px solid #aaa;
                 padding:3px 5px;
                 option {

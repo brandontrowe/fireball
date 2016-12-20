@@ -26,7 +26,7 @@ export class ProductCardComponent implements OnInit {
 
     addToCart(event: Event, productId: number) {
         event.preventDefault();
-        this.addToCartLabel = 'Adding to Cart...';
+        this.addToCartLabel = '<i class="fa fa-spinner fa-spin fa-fw"></i> Adding...';
         this.shoppingCartService.addToCart(productId).then(() => {
             this.addToCartLabel = 'Added!';
         }, (error) => {

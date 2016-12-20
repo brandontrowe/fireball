@@ -1,8 +1,9 @@
 import { Component, OnInit }            from '@angular/core';
 import { Router }                       from '@angular/router';
+import { FirebaseListObservable }       from 'angularfire2';
+
 import { ICategory }                    from '../../models/category';
 import { CategoryService }              from '../../services/category.service';
-import { FirebaseListObservable }       from 'angularfire2';
 
 @Component({
     selector: 'category-nav',
@@ -10,7 +11,8 @@ import { FirebaseListObservable }       from 'angularfire2';
     styleUrls: ['./category-nav.component.scss']
 })
 export class CategoryNavComponent implements OnInit {
-    public categories: FirebaseListObservable<ICategory[]>;
+    categories: FirebaseListObservable<ICategory[]>;
+    rangeValues: number[] = [0,100];
 
     constructor(
         private router: Router,
