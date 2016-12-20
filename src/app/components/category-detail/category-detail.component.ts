@@ -16,7 +16,7 @@ import { ProductService }               from '../../services/product.service';
 export class CategoryDetailComponent implements OnInit {
     category: ICategory;
     products: IProduct[];
-    sort: string;
+    sort: string = '';
 
     constructor(
         public categoryService: CategoryService,
@@ -49,8 +49,7 @@ export class CategoryDetailComponent implements OnInit {
                 this.sortProducts(qParams['sort'])
             }
         })
-        console.log(this.route.snapshot.queryParams['sort'].length)
-        if(this.route.snapshot.queryParams['sort'].length) {
+        if(this.route.snapshot.queryParams['sort'] && this.route.snapshot.queryParams['sort'].length) {
             this.sort = this.route.snapshot.queryParams['sort'];
         }
     }

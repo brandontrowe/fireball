@@ -1,3 +1,6 @@
+@import '../../../scss/_variables';
+@import '../../../scss/_button';
+
 .prod {
     text-align:center;
 }
@@ -6,16 +9,23 @@
 
 }
 .prod-title {
+    margin-top:10px;
+    margin-bottom:10px;
     font-weight:normal;
+    font-size:15px;
     a {
         text-decoration:none;
     }
 }
 .prod-price {
-
+    font-size:13px;
+    color:#5c5c5c;
 }
 .prod-add {
+    margin-top:10px;
     cursor:pointer;
+    @extend .btn;
+    font-size:13px;
 }
 .prod-desc {
 

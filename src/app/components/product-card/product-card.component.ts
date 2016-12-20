@@ -29,6 +29,7 @@ export class ProductCardComponent implements OnInit {
         this.addToCartLabel = '<i class="fa fa-spinner fa-spin fa-fw"></i> Adding...';
         this.shoppingCartService.addToCart(productId).then(() => {
             this.addToCartLabel = 'Added!';
+            setTimeout(() => {this.addToCartLabel = 'Add To Cart';}, 1000)
         }, (error) => {
             console.log(error);
             // TODO: output error to the global error messaging system

@@ -1,0 +1,40 @@
+.btn {
+    text-transform:uppercase;
+    text-align:center;
+    display:inline-block;
+
+    a {
+        font-size:14px;
+        display:block;
+        padding:5px 20px;
+        color:darken(#eee, 40%);
+        background-color:#eee;
+
+        &:hover {
+            text-decoration:none;
+            color:darken(#eee, 60%);
+            background-color:darken(#eee, 20%);
+        }
+    }
+
+    &.btn-primary {
+        a {
+            color:#fff;
+            background-color:$brand-primary;
+            &:hover {
+                color:#fff;
+                background-color:darken($brand-primary, 20%);
+            }
+        }
+    }
+    &.btn-focus {
+        a {
+            color:darken(#FFD34E, 40%);
+            background-color:#FFD34E;
+            &:hover {
+                color:darken(#FFD34E, 60%);
+                background-color:darken(#FFD34E, 20%);
+            }
+        }
+    }
+}
