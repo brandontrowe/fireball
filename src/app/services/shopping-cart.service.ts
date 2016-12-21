@@ -65,9 +65,10 @@ export class ShoppingCartService {
         return this.cartQty;
     }
 
-    // getShoppingCart():Observable<ShoppingCart> {
-    //
-    //     return this.shoppingCart.subscribe((res) => this.cart);
-    // }
+    getShoppingCart():Observable<ShoppingCart> {
+
+        // return this.shoppingCart.subscribe((res) => this.cart);
+        return new Observable();
+    }
 
 }

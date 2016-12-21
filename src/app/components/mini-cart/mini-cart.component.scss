@@ -67,13 +67,18 @@
                     cursor:pointer;
                     position:absolute;
                     right:0px;
-                    top:49%;
+                    top:40%;
                     color:lighten(#5c5c5c, 30%);
                     &:hover {
                         color:#5c5c5c;
                     }
                 }
             }
+        }
+        .cart-more {
+            font-size:12px;
+            padding-bottom:0;
+            text-align:right;
         }
     }
 

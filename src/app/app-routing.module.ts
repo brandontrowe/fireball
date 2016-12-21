@@ -6,10 +6,10 @@ import { ProductDetailComponent }      from './components/product-detail/product
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'shop', component: CategoryDetailComponent },
-  { path: 'category', component: CategoryDetailComponent },
-  { path: 'category/:id', component: CategoryDetailComponent },
-  { path: 'product/:productId', component: ProductDetailComponent },
-  { path: 'product/:productId/:categoryId', component: ProductDetailComponent },
+  { path: 'shop/category', component: CategoryDetailComponent },
+  { path: 'shop/category/:id', component: CategoryDetailComponent },
+  { path: 'shop/product/:productId', component: ProductDetailComponent },
+  { path: 'shop/product/:productId/:categoryId', component: ProductDetailComponent },
   { path: 'wishlist', redirectTo: '/' },
   { path: 'my-account', redirectTo: '/' }
 ];

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input }     from '@angular/core';
+import { Component, OnInit, Input, Renderer }     from '@angular/core';
 import { Router }                       from '@angular/router';
 
 import { IProduct }                     from '../../models/product';
@@ -18,7 +18,8 @@ export class ProductCardComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private shoppingCartService: ShoppingCartService
+        private shoppingCartService: ShoppingCartService,
+        private renderer: Renderer
     ) { }
 
     ngOnInit() {
@@ -39,10 +40,14 @@ export class ProductCardComponent implements OnInit {
     navigateToProduct(event: Event, productId: number) {
         event.preventDefault()
         if(this.category) {
-            this.router.navigate(['/product', productId, this.category.id]);
+            this.router.navigate(['/shop/product', productId, this.category.id]);
         } else {
-            this.router.navigate(['/product', productId]);
+            this.router.navigate(['/shop/product', productId]);
         }
+    }
+
+    animateEnd(event: Event) {
+        this.renderer.setElementClass(event.target, "end", true)
     }
 
 }

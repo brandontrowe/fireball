@@ -1,6 +1,4 @@
 import { Component, OnInit }    from '@angular/core';
-import { Router, ActivatedRoute }       from '@angular/router';
-import { Observable }   from 'rxjs/Observable';
 
 import { ShoppingCartService }          from '../../services/shopping-cart.service';
 
@@ -12,9 +10,6 @@ import { ShoppingCartService }          from '../../services/shopping-cart.servi
 export class MainNavComponent implements OnInit {
     navigation = [
         {
-            'label': '<i class="fa fa-home"></a>',
-            'link': '/'
-        }, {
             'label': 'Shop',
             'link': '/shop'
         }, {
@@ -27,15 +22,19 @@ export class MainNavComponent implements OnInit {
         }
     ];
     cartQty: number = 0;
+    minicartToggle: boolean = false;
 
     constructor(
-        private router: Router,
-        private route: ActivatedRoute,
         private shoppingCartService: ShoppingCartService
     ) { }
 
     ngOnInit() {
         this.shoppingCartService.getProductQtyInCart().subscribe(res => this.cartQty = res)
+    }
+
+    toggleMinicart(event) {
+        event.preventDefault();
+        this.minicartToggle = this.minicartToggle ? false : true;
     }
 
 }

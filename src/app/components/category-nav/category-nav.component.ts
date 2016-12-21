@@ -25,7 +25,7 @@ export class CategoryNavComponent implements OnInit {
 
     onSelect(event, category: ICategory) {
         event.preventDefault();
-        this.router.navigate(['/category', category.id]);
+        this.router.navigate(['/shop/category', category.id]);
     }
 
 }

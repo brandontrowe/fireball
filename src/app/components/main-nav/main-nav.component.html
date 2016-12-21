@@ -1,9 +1,9 @@
 <nav class="main-nav">
     <ul>
-        <li *ngFor="let nav of navigation"><a routerLink="{{nav.link}}" href="#" [innerHTML]="nav.label"></a></li>
+        <li><a routerLink="/" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" href=""><i class="fa fa-home"></i></a></li><li *ngFor="let nav of navigation"><a routerLink="{{nav.link}}" [routerLinkActive]="['active']" href="#" [innerHTML]="nav.label"></a></li>
     </ul>
     <div class="cart">
-        <a href=""><i class="fa fa-shopping-cart"></i> Cart ({{cartQty}})</a>
-        <mini-cart></mini-cart>
+        <a href="" (click)="toggleMinicart($event)"><i class="fa fa-shopping-cart"></i> Cart ({{cartQty}})</a>
+        <mini-cart *ngIf="minicartToggle"></mini-cart>
     </div>
 </nav>

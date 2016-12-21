@@ -1,8 +1,27 @@
 @import '../../../scss/_variables';
 @import '../../../scss/_button';
 
+@keyframes fadein {
+  from {
+    opacity:0;
+
+  }
+
+  to {
+    opacity:1
+  }
+}
+
 .prod {
+    opacity:0;
     text-align:center;
+    animation-delay: 0.3s;
+    animation-duration: 0.5s;
+    animation-name: fadein;
+
+    &.end {
+        opacity:1;
+    }
 }
 
 .prod-img {
