@@ -22,7 +22,7 @@ export class MainNavComponent implements OnInit {
         }
     ];
     cartQty: number = 0;
-    minicartToggle: boolean = false;
+    minicartToggle: string = '';
 
     constructor(
         private shoppingCartService: ShoppingCartService
@@ -34,7 +34,7 @@ export class MainNavComponent implements OnInit {
 
     toggleMinicart(event) {
         event.preventDefault();
-        this.minicartToggle = this.minicartToggle ? false : true;
+        this.minicartToggle = this.minicartToggle.length ? 'hidden' : '';
     }
 
 }

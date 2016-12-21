@@ -13,6 +13,7 @@ import { MainNavComponent }         from './components/main-nav/main-nav.compone
 import { CategoryNavComponent }     from './components/category-nav/category-nav.component';
 import { ShoppingCartComponent }    from './components/shopping-cart/shopping-cart.component';
 import { MiniCartComponent }        from './components/mini-cart/mini-cart.component';
+import { MiniCartItemComponent }    from './components/mini-cart/mini-cart-item.component';
 import { CheckoutComponent }        from './components/checkout/checkout.component';
 
 import { CategoryService }          from './services/category.service';
@@ -39,6 +40,7 @@ const firebaseConfig = {
     ProductDetailComponent,
     ShoppingCartComponent,
     MiniCartComponent,
+    MiniCartItemComponent,
     CheckoutComponent
   ],
   imports: [

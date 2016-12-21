@@ -22,11 +22,17 @@ export class MiniCartComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        // this.shoppingCartService.getShoppingCart.subscribe(
-        //     (res) => {
-        //         this.cart = res;
-        //     }
-        // )
+        this.shoppingCartService.getShoppingCart().subscribe((res) => {
+            this.cart = res;
+            if(res.items.length) {
+                let productIds = [];
+                for (let item in res.items) {
+                    productIds.push(+res.items[item].id)
+                }
+                this.productService.getProductsByIds(productIds).then((res) => this.products = res)
+                console.log(productIds)
+            }
+        });
     }
 
     removeProduct(event, product) {

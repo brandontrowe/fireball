@@ -1,3 +1,4 @@
+import * as _                                   from 'lodash';
 import { Injectable }                           from '@angular/core';
 import { AngularFire, FirebaseListObservable }  from 'angularfire2';
 import { ReplaySubject }                        from 'rxjs/ReplaySubject';
@@ -15,8 +16,10 @@ export class ShoppingCartService {
             equalTo: this.sessionId
         }
     }) as FirebaseListObservable<ShoppingCart[]>;
-    private cartQty: ReplaySubject<number> = new ReplaySubject(1);
-    public cart: ShoppingCart = new ShoppingCart(this.sessionId);
+
+    cartQty: ReplaySubject<number> = new ReplaySubject(1);
+    cartSubject: ReplaySubject<ShoppingCart> = new ReplaySubject(1);
+    cart: ShoppingCart = new ShoppingCart(this.sessionId);
 
     constructor(
         public cookieService: CookieService,
@@ -29,7 +32,9 @@ export class ShoppingCartService {
                 this.createCart();
             } else {
                 this.cart = new ShoppingCart(res[0].id, res[0].$key, res[0].items);
+                this.cartSubject.next(this.cart);
                 this.setProductQtyInCart();
+                console.log(this.cart)
             }
         });
     }
@@ -43,13 +48,21 @@ export class ShoppingCartService {
     }
 
     addToCart(productId: number, quantity: number = 1):Promise<boolean> {
+        if(!this.cart.items) { this.cart.items = []; }
         return new Promise<boolean> ((resolve, reject) => {
-            if(!this.cart.items) {
-                this.cart.items = [];
+            let idArr = this.cart.items.map(function(item){ return item.id });
+            if(_.includes(idArr, productId)){
+                for(let item in this.cart.items) {
+                    if(this.cart.items[item].id == productId) {
+                        this.cart.items[item].quantity += quantity;
+                        break;
+                    }
+                }
+            } else {
+                this.cart.items.push({'id': productId, 'quantity': quantity});
             }
-            this.cart.items.push({'id': productId, 'quantity': quantity});
             this.updateCart();
-            resolve(true)
+            resolve(true);
         })
     }
 
@@ -66,9 +79,7 @@ export class ShoppingCartService {
     }
 
     getShoppingCart():Observable<ShoppingCart> {
-
-        // return this.shoppingCart.subscribe((res) => this.cart);
-        return new Observable();
+        return this.cartSubject;
     }
 
 }
