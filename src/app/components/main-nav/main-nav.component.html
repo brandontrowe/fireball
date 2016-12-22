@@ -4,6 +4,6 @@
     </ul>
     <div class="cart">
         <a href="" (click)="toggleMinicart($event)"><i class="fa fa-shopping-cart"></i> Cart ({{cartQty}})</a>
-        <mini-cart *ngIf="minicartToggle"></mini-cart>
+        <mini-cart (cartUpdate)="openMinicart(2000)" (mouseover)="openMinicart()" (closeMinicart)="closeMinicart()" class="{{minicartToggle}}"></mini-cart>
     </div>
 </nav>

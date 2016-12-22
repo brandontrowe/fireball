@@ -1,37 +1,30 @@
-<div id="mini-cart">
+<div *ngIf="cart" id="mini-cart">
     <div class="arrow"></div>
-    <div class="header">SHOPPING CART</div>
-    <ul class="cart-items">
-        <li>
-            <a class="prod-img" href=""><img src="http://placehold.it/300" /></a>
-            <div class="detail">
-                <div class="title"><a href="">First cart item</a></div>
-                <div class="sub-line">2 x <span class="price">$13.99</span></div>
-                <div class="remove"><i class="fa fa-times-circle"></i></div>
+    <div class="header">
+        SHOPPING CART
+        <a (click)="close($event)" class="close-btn" href=""><i class="fa fa-times"></i></a>
+    </div>
+    <ul *ngIf="cart.items.length > 0" class="cart-items">
+        <li *ngFor="let item of cart.items">
+            <div *ngIf="item.product">
+                <a class="prod-img" (click)="navigateToProduct($event, item.id)" href=""><img src="{{item.product.image[0].main}}" /></a>
+                <div class="detail">
+                    <div class="title"><a (click)="navigateToProduct($event, item.id)" href="">{{item.product.title}}</a></div>
+                    <div class="sub-line">{{item.quantity}} x <span class="price">${{item.product.price}}</span></div>
+                    <div class="remove" (click)="removeProduct($event, item)"><i class="fa fa-times-circle"></i></div>
+                </div>
             </div>
-        </li>
-        <li>
-            <a class="prod-img" href=""><img src="http://placehold.it/300" /></a>
-            <div class="detail">
-                <div class="title"><a href="">First cart item</a></div>
-                <div class="sub-line">2 x <span class="price">$13.99</span></div>
-                <div class="remove"><i class="fa fa-times-circle"></i></div>
-            </div>
-        </li>
-        <li>
-            <a class="prod-img" href=""><img src="http://placehold.it/300" /></a>
-            <div class="detail">
-                <div class="title"><a href="">First cart item</a></div>
-                <div class="sub-line">2 x <span class="price">$13.99</span></div>
-                <div class="remove"><i class="fa fa-times-circle"></i></div>
-            </div>
-        </li>
-        <li class="cart-more">
-            ...4 more items in <a href="">your cart</a>.
         </li>
     </ul>
+    <p *ngIf="cart.items.length == 0" class="empty">There are no items in your cart.</p>
     <div class="action">
-        <div class="btn"><a href="">View Cart</a></div>
-        <div class="btn btn-primary"><a href="">Checkout</a></div>
+        <div class="btn"><a routerLink="/cart" href="">View Cart</a></div>
+        <div class="btn btn-primary"><a routerLink="/billing-shipping" href="">Checkout</a></div>
     </div>
 </div>
+
+<!--
+<li class="cart-more">
+    ...{{remainingQty}} more items in <a routerLink="/cart" href="">your cart</a>.
+</li>
+-->

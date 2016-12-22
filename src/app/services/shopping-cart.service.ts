@@ -1,9 +1,11 @@
-import { Injectable }                           from '@angular/core';
+import * as _                                   from 'lodash';
+import { Injectable }     from '@angular/core';
 import { AngularFire, FirebaseListObservable }  from 'angularfire2';
 import { ReplaySubject }                        from 'rxjs/ReplaySubject';
 import { Observable }                           from 'rxjs/Observable';
 
-import { ShoppingCart }                         from '../models/shopping-cart';
+import { ShoppingCart, Item }                   from '../models/shopping-cart';
+import { ProductService }                       from './product.service';
 import { CookieService }                        from './cookie.service';
 
 @Injectable()
@@ -15,11 +17,14 @@ export class ShoppingCartService {
             equalTo: this.sessionId
         }
     }) as FirebaseListObservable<ShoppingCart[]>;
-    private cartQty: ReplaySubject<number> = new ReplaySubject(1);
-    public cart: ShoppingCart = new ShoppingCart(this.sessionId);
+
+    cartQty: ReplaySubject<number> = new ReplaySubject(1);
+    cartSubject: ReplaySubject<ShoppingCart> = new ReplaySubject(1);
+    cart: ShoppingCart = new ShoppingCart(this.sessionId);
 
     constructor(
         public cookieService: CookieService,
+        public productService: ProductService,
         public af: AngularFire
     ) {
         cookieService.createCookie('ngSession', this.sessionId, 30);
@@ -28,7 +33,16 @@ export class ShoppingCartService {
             if(res[0] == undefined) {
                 this.createCart();
             } else {
+                if(res[0].items && res[0].items.length){
+                    for(let item in res[0].items) {
+                        this.productService.getProductById(res[0].items[item].id).then((prod) => {
+                            res[0].items[item].product = prod;
+                            delete res[0].items[item].product.$key;
+                        })
+                    }
+                }
                 this.cart = new ShoppingCart(res[0].id, res[0].$key, res[0].items);
+                this.cartSubject.next(this.cart);
                 this.setProductQtyInCart();
             }
         });
@@ -39,18 +53,44 @@ export class ShoppingCartService {
     }
 
     updateCart(): firebase.Promise<any> {
-        return this.shoppingCart.update(this.cart.$key, { 'items': this.cart.items });
+        let updateItems =  this.cart.items;
+        for(let itemIndex in updateItems) {
+            delete updateItems[itemIndex].product;
+        }
+        return this.shoppingCart.update(this.cart.$key, { 'items': updateItems });
     }
 
     addToCart(productId: number, quantity: number = 1):Promise<boolean> {
+        if(!this.cart.items) { this.cart.items = []; }
         return new Promise<boolean> ((resolve, reject) => {
-            if(!this.cart.items) {
-                this.cart.items = [];
+            let idArr = this.cart.items.map(function(item){ return item.id });
+            if(_.includes(idArr, productId)){
+                for(let item in this.cart.items) {
+                    if(this.cart.items[item].id == productId) {
+                        this.cart.items[item].quantity += quantity;
+                        break;
+                    }
+                }
+            } else {
+                this.cart.items.push(new Item(productId, quantity));
             }
-            this.cart.items.push({'id': productId, 'quantity': quantity});
             this.updateCart();
-            resolve(true)
+            resolve(true);
         })
+    }
+
+    removeFromCart(item: Item):Promise<boolean> {
+        return new Promise<boolean> ((resolve, reject) => {
+            for(let itemIndex in this.cart.items) {
+                if(this.cart.items[itemIndex].id == item.id) {
+                    this.cart.items.splice(+itemIndex, 1);
+                    this.updateCart();
+                    resolve(true);
+                    break;
+                }
+            }
+            resolve(false);
+        });
     }
 
     setProductQtyInCart() {
@@ -66,9 +106,7 @@ export class ShoppingCartService {
     }
 
     getShoppingCart():Observable<ShoppingCart> {
-
-        // return this.shoppingCart.subscribe((res) => this.cart);
-        return new Observable();
+        return this.cartSubject;
     }
 
 }

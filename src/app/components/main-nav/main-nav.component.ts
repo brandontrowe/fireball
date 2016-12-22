@@ -22,7 +22,8 @@ export class MainNavComponent implements OnInit {
         }
     ];
     cartQty: number = 0;
-    minicartToggle: boolean = false;
+    minicartToggle: string = 'hidden';
+    minicartTimeoutID: number;
 
     constructor(
         private shoppingCartService: ShoppingCartService
@@ -32,9 +33,23 @@ export class MainNavComponent implements OnInit {
         this.shoppingCartService.getProductQtyInCart().subscribe(res => this.cartQty = res)
     }
 
-    toggleMinicart(event) {
-        event.preventDefault();
-        this.minicartToggle = this.minicartToggle ? false : true;
+    toggleMinicart(event?:Event) {
+        if(event) { event.preventDefault() };
+        this.minicartToggle = this.minicartToggle.length ? '' : 'hidden';
+    }
+
+    openMinicart(switchbackDelay: number = 0) {
+        window.clearTimeout(this.minicartTimeoutID);
+        this.minicartToggle = '';
+        if(switchbackDelay) {
+            this.minicartTimeoutID = window.setTimeout(() => {
+                this.closeMinicart();
+            }, switchbackDelay)
+        }
+    }
+
+    closeMinicart() {
+        this.minicartToggle = 'hidden';
     }
 
 }
