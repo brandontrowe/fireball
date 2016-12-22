@@ -1,16 +1,30 @@
 <div *ngIf="cart" id="mini-cart">
     <div class="arrow"></div>
-    <div class="header">SHOPPING CART</div>
-    <ul class="cart-items">
+    <div class="header">
+        SHOPPING CART
+        <a (click)="close($event)" class="close-btn" href=""><i class="fa fa-times"></i></a>
+    </div>
+    <ul *ngIf="cart.items.length > 0" class="cart-items">
         <li *ngFor="let item of cart.items">
-            <mini-cart-item [product]="productService.getProductById(item.id).then((res) => {return res})"></mini-cart-item>
-        </li>
-        <li class="cart-more">
-            ...{{remainingQty}} more items in <a routerLink="/cart" href="">your cart</a>.
+            <div *ngIf="item.product">
+                <a class="prod-img" (click)="navigateToProduct($event, item.id)" href=""><img src="{{item.product.image[0].main}}" /></a>
+                <div class="detail">
+                    <div class="title"><a (click)="navigateToProduct($event, item.id)" href="">{{item.product.title}}</a></div>
+                    <div class="sub-line">{{item.quantity}} x <span class="price">${{item.product.price}}</span></div>
+                    <div class="remove" (click)="removeProduct($event, item)"><i class="fa fa-times-circle"></i></div>
+                </div>
+            </div>
         </li>
     </ul>
+    <p *ngIf="cart.items.length == 0" class="empty">There are no items in your cart.</p>
     <div class="action">
         <div class="btn"><a routerLink="/cart" href="">View Cart</a></div>
         <div class="btn btn-primary"><a routerLink="/billing-shipping" href="">Checkout</a></div>
     </div>
 </div>
+
+<!--
+<li class="cart-more">
+    ...{{remainingQty}} more items in <a routerLink="/cart" href="">your cart</a>.
+</li>
+-->

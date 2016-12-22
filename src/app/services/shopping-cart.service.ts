@@ -1,10 +1,11 @@
 import * as _                                   from 'lodash';
-import { Injectable }                           from '@angular/core';
+import { Injectable }     from '@angular/core';
 import { AngularFire, FirebaseListObservable }  from 'angularfire2';
 import { ReplaySubject }                        from 'rxjs/ReplaySubject';
 import { Observable }                           from 'rxjs/Observable';
 
-import { ShoppingCart }                         from '../models/shopping-cart';
+import { ShoppingCart, Item }                   from '../models/shopping-cart';
+import { ProductService }                       from './product.service';
 import { CookieService }                        from './cookie.service';
 
 @Injectable()
@@ -23,6 +24,7 @@ export class ShoppingCartService {
 
     constructor(
         public cookieService: CookieService,
+        public productService: ProductService,
         public af: AngularFire
     ) {
         cookieService.createCookie('ngSession', this.sessionId, 30);
@@ -31,10 +33,17 @@ export class ShoppingCartService {
             if(res[0] == undefined) {
                 this.createCart();
             } else {
+                if(res[0].items && res[0].items.length){
+                    for(let item in res[0].items) {
+                        this.productService.getProductById(res[0].items[item].id).then((prod) => {
+                            res[0].items[item].product = prod;
+                            delete res[0].items[item].product.$key;
+                        })
+                    }
+                }
                 this.cart = new ShoppingCart(res[0].id, res[0].$key, res[0].items);
                 this.cartSubject.next(this.cart);
                 this.setProductQtyInCart();
-                console.log(this.cart)
             }
         });
     }
@@ -44,7 +53,11 @@ export class ShoppingCartService {
     }
 
     updateCart(): firebase.Promise<any> {
-        return this.shoppingCart.update(this.cart.$key, { 'items': this.cart.items });
+        let updateItems =  this.cart.items;
+        for(let itemIndex in updateItems) {
+            delete updateItems[itemIndex].product;
+        }
+        return this.shoppingCart.update(this.cart.$key, { 'items': updateItems });
     }
 
     addToCart(productId: number, quantity: number = 1):Promise<boolean> {
@@ -59,11 +72,25 @@ export class ShoppingCartService {
                     }
                 }
             } else {
-                this.cart.items.push({'id': productId, 'quantity': quantity});
+                this.cart.items.push(new Item(productId, quantity));
             }
             this.updateCart();
             resolve(true);
         })
+    }
+
+    removeFromCart(item: Item):Promise<boolean> {
+        return new Promise<boolean> ((resolve, reject) => {
+            for(let itemIndex in this.cart.items) {
+                if(this.cart.items[itemIndex].id == item.id) {
+                    this.cart.items.splice(+itemIndex, 1);
+                    this.updateCart();
+                    resolve(true);
+                    break;
+                }
+            }
+            resolve(false);
+        });
     }
 
     setProductQtyInCart() {
