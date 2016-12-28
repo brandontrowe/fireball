@@ -8,8 +8,7 @@ import { ShoppingCartService }      from '../../services/shopping-cart.service';
 
 @Component({
     selector: 'mini-cart',
-    templateUrl: './mini-cart.component.html',
-    styleUrls: ['./mini-cart.component.scss']
+    templateUrl: './mini-cart.component.html'
 })
 export class MiniCartComponent implements OnInit {
     @Output() cartUpdate = new EventEmitter(); // Should this be open minicart?
@@ -40,11 +39,12 @@ export class MiniCartComponent implements OnInit {
     }
 
     navigateToProduct(event: Event, productId: number) {
-        event.preventDefault()
+        event.preventDefault();
         this.router.navigate(['/shop/product', productId]);
+        this.close();
     }
 
-    close(event:Event) {
+    close(event?:Event) {
         if(event) { event.preventDefault() };
         this.closeMinicart.emit();
     }

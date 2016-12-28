@@ -1,4 +1,4 @@
-<div *ngIf="categories">
+<div *ngIf="categories" class="cat-nav-wrap">
     <h3>Categories</h3>
     <ul class="category-nav">
         <li *ngFor="let category of categories | async"><a (click)="onSelect($event, category)" href="#">{{category.title}} ({{category.productAssignments.length}})</a></li>

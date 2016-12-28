@@ -10,8 +10,7 @@ import { ProductService }               from '../../services/product.service';
 
 @Component({
   selector: 'app-category-detail',
-  templateUrl: './category-detail.component.html',
-  styleUrls: ['./category-detail.component.scss']
+  templateUrl: './category-detail.component.html'
 })
 export class CategoryDetailComponent implements OnInit {
     category: ICategory;

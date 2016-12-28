@@ -1,0 +1,40 @@
+.hidden {
+    display:none !important;
+    visibility: hidden !important;
+}
+
+.clearfix:after {
+    content:" ";
+    display:block;
+    clear:both;
+}
+
+@mixin xl-only {
+  @media only screen and (min-width: $bp-large) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media only screen and (max-width: $bp-large) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media only screen and (max-width: $bp-medium) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media only screen and (max-width: $bp-small) {
+    @content;
+  }
+}
+
+@mixin micro {
+  @media only screen and (max-width: $bp-micro) {
+    @content;
+  }
+}

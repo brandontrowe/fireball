@@ -7,8 +7,7 @@ import { ShoppingCartService }          from '../../services/shopping-cart.servi
 
 @Component({
     selector: 'product-card',
-    templateUrl: './product-card.component.html',
-    styleUrls: ['./product-card.component.scss']
+    templateUrl: './product-card.component.html'
 })
 export class ProductCardComponent implements OnInit {
     @Input() product: IProduct;

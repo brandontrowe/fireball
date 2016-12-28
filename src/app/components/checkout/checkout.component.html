@@ -1,3 +1,12 @@
-<p>
-  checkout works!
-</p>
+<div [ngClass]="{'full': step == 'cart', 'hidden': step != 'cart'}" class="">
+cart
+</div>
+<div [ngClass]="{'full': step == 'billing', 'hidden': step != 'billing'}" class="">
+billing
+</div>
+<div [ngClass]="{'full': step == 'shipping', 'hidden': step != 'shipping'}" class="">
+shipping
+</div>
+<div [ngClass]="{'full': step == 'confirmation', 'hidden': step != 'confirmation'}" class="">
+confirmation
+</div>

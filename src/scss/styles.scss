@@ -1,43 +1,19 @@
+@import "normalize-scss/normalize/_import-now"; // import normalize-scss
+//@import "skeleton/core/config"; // Skeleton Sass core loader
+
 @import '_variables';
-@import '_reset';
+@import '_utils';
 @import 'font-awesome/font-awesome';
 @import '_primeUI';
 
-@import '_breadcrumbs';
-@import '_button';
+@import '_base';
 @import '_header';
-
-#root-loading {
-    margin-top:100px;
-    color:lighten(#424242, 5%);
-}
-
-body {
-    -webkit-font-smoothing: antialiased;
-    width:100%;
-    text-align:center;
-    background-color:#e9e9e9;
-
-    .container {
-        width:100%;
-        max-width:1300px;
-        background-color:#fff;
-
-        text-align:left;
-        margin:0 auto;
-    }
-}
-
-h1 {
-    font-weight:normal;
-    font-size:16px;
-}
-
-img {
-    max-width:100%;
-}
-
-.hidden {
-    display:none !important;
-    visibility: hidden !important;
-}
+@import '_footer';
+@import '_button';
+@import '_breadcrumbs';
+@import '_product-detail';
+@import '_product-card';
+@import '_category-detail';
+@import '_navigation';
+@import '_mini-cart';
+@import '_checkout';

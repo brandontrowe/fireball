@@ -18,13 +18,7 @@
     </ul>
     <p *ngIf="cart.items.length == 0" class="empty">There are no items in your cart.</p>
     <div class="action">
-        <div class="btn"><a routerLink="/cart" href="">View Cart</a></div>
-        <div class="btn btn-primary"><a routerLink="/billing-shipping" href="">Checkout</a></div>
+        <div class="btn"><a href="" routerLink="/checkout/cart">View Cart</a></div>
+        <div class="btn btn-primary"><a href="" routerLink="/checkout/billing">Checkout</a></div>
     </div>
 </div>
-
-<!--
-<li class="cart-more">
-    ...{{remainingQty}} more items in <a routerLink="/cart" href="">your cart</a>.
-</li>
--->

@@ -11,8 +11,7 @@ import { CategoryService }                      from '../../services/category.se
 
 @Component({
     selector: 'app-product-detail',
-    templateUrl: './product-detail.component.html',
-    styleUrls: ['./product-detail.component.scss']
+    templateUrl: './product-detail.component.html'
 })
 export class ProductDetailComponent implements OnInit {
     product: IProduct;

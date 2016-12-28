@@ -4,8 +4,7 @@ import { ShoppingCartService }          from '../../services/shopping-cart.servi
 
 @Component({
     selector: 'main-nav',
-    templateUrl: './main-nav.component.html',
-    styleUrls: ['./main-nav.component.scss']
+    templateUrl: './main-nav.component.html'
 })
 export class MainNavComponent implements OnInit {
     navigation = [
@@ -13,8 +12,8 @@ export class MainNavComponent implements OnInit {
             'label': 'Shop',
             'link': '/shop'
         }, {
-            'label': 'Wishlist',
-            'link': '/wishlist'
+            'label': 'Favorites',
+            'link': '/favorites'
 
         }, {
             'label': 'My Account',
@@ -51,5 +50,7 @@ export class MainNavComponent implements OnInit {
     closeMinicart() {
         this.minicartToggle = 'hidden';
     }
+
+
 
 }

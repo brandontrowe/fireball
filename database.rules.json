@@ -1,7 +1,9 @@
 {
-  "rules": {
-    ".read": "auth == null",
-    ".write": "auth == null",
-    ".indexOn": "id"
-  }
+    "rules": {
+        ".read": "auth == null",
+        ".write": "auth == null",
+        "SHOPPING_CART": {
+            ".indexOn": "id"
+        }
+    }
 }

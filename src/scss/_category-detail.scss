@@ -2,7 +2,7 @@
     position:relative;
     .title {
         position:absolute;
-        top:60%;
+        bottom:15%;
         left:50px;
 
         font-size:26px;
@@ -20,7 +20,7 @@
     flex-wrap:wrap;
 }
 
-.prod {
+.prod-card {
     flex: 3 1 30%;
     max-width:30%;
     margin-bottom:5%;
@@ -30,20 +30,23 @@
         margin-left:5%;
     }
 
-    @media only screen and (max-width: 699px) {
+    @include large {
         max-width:45%;
+        flex: 2 1 45%;
 
-        &:nth-child(3n+2) {
+        &:nth-child(3n+3) {
             margin:0;
         }
-        &:nth-child(2n+1) {
+        &:nth-child(2n+2) {
             margin-right:10%;
         }
     }
 
-    @media only screen and (max-width: 449px) {
+    @include medium {
         max-width:100%;
-        &:nth-child(2n+1) {
+        flex: 1 1 100%;
+
+        &:nth-child(2n+2) {
             margin-right:0;
         }
     }
@@ -54,6 +57,16 @@
     padding: 0px;
     display: flex;
     flex-flow: row;
+
+    @include large {
+        margin-left:15px;
+        margin-right:15px;
+    }
+
+    @include medium {
+        margin-left:10px;
+        margin-right:10px;
+    }
 
     .products {
         margin: 4px;

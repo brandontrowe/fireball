@@ -7,8 +7,7 @@ import { CategoryService }              from '../../services/category.service';
 
 @Component({
     selector: 'category-nav',
-    templateUrl: './category-nav.component.html',
-    styleUrls: ['./category-nav.component.scss']
+    templateUrl: './category-nav.component.html'
 })
 export class CategoryNavComponent implements OnInit {
     categories: FirebaseListObservable<ICategory[]>;

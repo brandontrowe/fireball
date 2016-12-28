@@ -1,4 +1,4 @@
-<nav class="main-nav">
+<nav scrollPast scrollPastClass="stick" class="main-nav other third">
     <ul>
         <li><a routerLink="/" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" href=""><i class="fa fa-home"></i></a></li><li *ngFor="let nav of navigation"><a routerLink="{{nav.link}}" [routerLinkActive]="['active']" href="#" [innerHTML]="nav.label"></a></li>
     </ul>
