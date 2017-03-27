@@ -11,13 +11,6 @@ export class MainNavComponent implements OnInit {
         {
             'label': 'Shop',
             'link': '/shop'
-        }, {
-            'label': 'Favorites',
-            'link': '/favorites'
-
-        }, {
-            'label': 'My Account',
-            'link': '/my-account'
         }
     ];
     cartQty: number = 0;

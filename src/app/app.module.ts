@@ -20,7 +20,8 @@ import { ProductService }           from './services/product.service';
 import { CookieService }            from './services/cookie.service';
 import { ShoppingCartService }      from './services/shopping-cart.service';
 
-import { ScrollPastDirective }       from './directives/scroll-past.directive';
+
+import { ScrollPastDirective }      from './directives/scroll-past.directive';
 
 import { AppRoutingModule }         from './app-routing.module';
 
